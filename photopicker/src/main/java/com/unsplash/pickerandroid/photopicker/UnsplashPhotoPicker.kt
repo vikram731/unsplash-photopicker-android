@@ -17,22 +17,18 @@ object UnsplashPhotoPicker {
 
     private var pageSize: Int = DEFAULT_PAGE_SIZE
 
-    private var defaultSearchTerm: String = ""
-
     private var isLoggingEnabled = false
 
     fun init(
         application: Application,
         accessKey: String,
         secretKey: String,
-        pageSize: Int = DEFAULT_PAGE_SIZE,
-        defaultSearchTerm: String = ""
+        pageSize: Int = DEFAULT_PAGE_SIZE
     ): UnsplashPhotoPicker {
         this.application = application
         this.accessKey = accessKey
         this.secretKey = secretKey
         this.pageSize = pageSize
-        this.defaultSearchTerm = defaultSearchTerm
         return this
     }
 
@@ -50,10 +46,6 @@ object UnsplashPhotoPicker {
 
     fun getPageSize(): Int {
         return pageSize
-    }
-
-    fun getDefaultSearchTerm(): String {
-        return defaultSearchTerm
     }
 
     fun setLoggingEnabled(isEnabled: Boolean) {

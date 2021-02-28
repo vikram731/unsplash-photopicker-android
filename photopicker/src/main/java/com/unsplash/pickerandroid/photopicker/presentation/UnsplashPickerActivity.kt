@@ -41,6 +41,7 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
     val INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT = "set_bitmap_max_width_height"
     val INTENT_BITMAP_MAX_WIDTH = "max_width"
     val INTENT_BITMAP_MAX_HEIGHT = "max_height"
+    val INTENT_SEARCH_TERMS = "search_terms"
 
     private lateinit var mLayoutManager: StaggeredGridLayoutManager
 
@@ -54,13 +55,14 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
 
     private var mPreviousState = UnsplashPickerState.IDLE
 
-    private var lockAspectRatio = false
+    private var lockAspectRatio: Boolean = false
     private  var setBitmapMaxWidthHeight: Boolean = false
     private var ASPECT_RATIO_X: Float = 1.0f
     private  var ASPECT_RATIO_Y: Float = 1.0f
     private  var bitmapMaxWidth:Int = 1024
     private  var bitmapMaxHeight:Int = 1024
-    private var IMAGE_COMPRESSION = 80
+    private var IMAGE_COMPRESSION: Int = 80
+    private var defaultSearchTerm: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,6 +98,9 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
             INTENT_BITMAP_MAX_HEIGHT,
             bitmapMaxHeight
         )
+        defaultSearchTerm = intent.getStringExtra(
+            INTENT_SEARCH_TERMS
+        ) ?: ""
 
 
         mIsMultipleSelection = intent.getBooleanExtra(EXTRA_IS_MULTIPLE, false)
@@ -119,7 +124,7 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
             updateUiFromState()
         }
         unsplash_picker_done_image_view.setOnClickListener { sendPhotosAsResult() }
-        unsplash_picker_edit_text.setText(UnsplashPhotoPicker.getDefaultSearchTerm())
+        unsplash_picker_edit_text.setText(defaultSearchTerm)
         // get the view model and bind search edit text
         mViewModel =
                 ViewModelProviders.of(this, Injector.createPickerViewModelFactory())
