@@ -12,6 +12,10 @@
         <activity android:name=".presentation.PhotoShowActivity"
                   android:theme="@style/AppTheme.NoActionBar.Transparent">
         </activity>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

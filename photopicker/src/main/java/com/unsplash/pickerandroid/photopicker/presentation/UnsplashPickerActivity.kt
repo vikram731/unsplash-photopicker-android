@@ -1,22 +1,31 @@
 package com.unsplash.pickerandroid.photopicker.presentation
 
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.unsplash.pickerandroid.photopicker.Injector
 import com.unsplash.pickerandroid.photopicker.R
+import com.unsplash.pickerandroid.photopicker.UnsplashPhotoPicker
 import com.unsplash.pickerandroid.photopicker.data.UnsplashPhoto
+import com.yalantis.ucrop.UCrop
+import com.yalantis.ucrop.model.AspectRatio
 import kotlinx.android.synthetic.main.activity_picker.*
+import java.io.File
 
 /**
  * Main screen for the picker.
@@ -24,6 +33,14 @@ import kotlinx.android.synthetic.main.activity_picker.*
  * The list is has an infinite scroll.
  */
 class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
+
+    val INTENT_ASPECT_RATIO_X = "aspect_ratio_x"
+    val INTENT_ASPECT_RATIO_Y = "aspect_ratio_Y"
+    val INTENT_LOCK_ASPECT_RATIO = "lock_aspect_ratio"
+    val INTENT_IMAGE_COMPRESSION_QUALITY = "compression_quality"
+    val INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT = "set_bitmap_max_width_height"
+    val INTENT_BITMAP_MAX_WIDTH = "max_width"
+    val INTENT_BITMAP_MAX_HEIGHT = "max_height"
 
     private lateinit var mLayoutManager: StaggeredGridLayoutManager
 
@@ -37,9 +54,50 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
 
     private var mPreviousState = UnsplashPickerState.IDLE
 
+    private var lockAspectRatio = false
+    private  var setBitmapMaxWidthHeight: Boolean = false
+    private var ASPECT_RATIO_X: Float = 1.0f
+    private  var ASPECT_RATIO_Y: Float = 1.0f
+    private  var bitmapMaxWidth:Int = 1024
+    private  var bitmapMaxHeight:Int = 1024
+    private var IMAGE_COMPRESSION = 80
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_picker)
+
+        val intent = intent ?: return
+
+        ASPECT_RATIO_X = intent.getIntExtra(
+            INTENT_ASPECT_RATIO_X,
+            1
+        ).toFloat()
+        ASPECT_RATIO_Y = intent.getIntExtra(
+            INTENT_ASPECT_RATIO_Y,
+            1
+        ).toFloat()
+        IMAGE_COMPRESSION = intent.getIntExtra(
+            INTENT_IMAGE_COMPRESSION_QUALITY,
+            IMAGE_COMPRESSION
+        )
+        lockAspectRatio = intent.getBooleanExtra(
+            INTENT_LOCK_ASPECT_RATIO,
+            false
+        )
+        setBitmapMaxWidthHeight = intent.getBooleanExtra(
+            INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT,
+            false
+        )
+        bitmapMaxWidth = intent.getIntExtra(
+            INTENT_BITMAP_MAX_WIDTH,
+            bitmapMaxWidth
+        )
+        bitmapMaxHeight = intent.getIntExtra(
+            INTENT_BITMAP_MAX_HEIGHT,
+            bitmapMaxHeight
+        )
+
+
         mIsMultipleSelection = intent.getBooleanExtra(EXTRA_IS_MULTIPLE, false)
         // recycler view layout manager
         mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
@@ -61,6 +119,7 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
             updateUiFromState()
         }
         unsplash_picker_done_image_view.setOnClickListener { sendPhotosAsResult() }
+        unsplash_picker_edit_text.setText(UnsplashPhotoPicker.getDefaultSearchTerm())
         // get the view model and bind search edit text
         mViewModel =
                 ViewModelProviders.of(this, Injector.createPickerViewModelFactory())
@@ -80,12 +139,13 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         })
         mViewModel.loadingLiveData.observe(this, Observer {
-            unsplash_picker_progress_bar_layout.visibility = if (it != null && it) View.VISIBLE else View.GONE
+            unsplash_picker_progress_bar_layout.visibility =
+                if (it != null && it) View.VISIBLE else View.GONE
         })
         mViewModel.photosLiveData.observe(this, Observer {
             unsplash_picker_no_result_text_view.visibility =
-                    if (it == null || it.isEmpty()) View.VISIBLE
-                    else View.GONE
+                if (it == null || it.isEmpty()) View.VISIBLE
+                else View.GONE
             mAdapter.submitList(it)
         })
     }
@@ -122,8 +182,75 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
         }
         // if single selection send selected photo as a result
         else if (nbOfSelectedPhotos > 0) {
-            sendPhotosAsResult()
+            val photos: ArrayList<UnsplashPhoto> = mAdapter.getImages()
+            // track the downloads
+            mViewModel.trackDownloads(photos)
+
+            val photo = photos[0];
+            var photoUrl: String? = photo.urls.regular
+            if (photoUrl == null) {
+                photoUrl = photo.urls.small
+            }
+            if (photoUrl != null) {
+                cropImage(Uri.parse(photoUrl))
+            }
+            //sendPhotosAsResult()
         }
+    }
+
+    private fun cropImage(sourceUri: Uri) {
+        var fname = "quotepic"
+        if (!sourceUri.toString().startsWith("http")) {
+            try {
+                val tmpfname: String? =
+                    queryName(
+                        contentResolver, sourceUri
+                    )
+                if (tmpfname != null &&!tmpfname.isEmpty()) {
+                    fname = tmpfname
+                }
+            } catch (e: Exception) {
+                //
+            }
+        }
+        val file = File(cacheDir, fname + "_crop")
+        if (file.exists()) {
+            //Delete
+            file.delete()
+        }
+        val destinationUri = Uri.fromFile(file)
+        val options = UCrop.Options()
+        //options.setCompressionQuality(IMAGE_COMPRESSION);
+        options.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        options.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
+        options.setActiveControlsWidgetColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        options.setToolbarWidgetColor(Color.WHITE)
+        options.setAspectRatioOptions(
+            0,
+            AspectRatio(
+                null,
+                ASPECT_RATIO_X,
+                ASPECT_RATIO_Y
+            ),
+            AspectRatio(null, 1.0f, 1.0f)
+        )
+
+        if (lockAspectRatio)
+            options.withAspectRatio(ASPECT_RATIO_X, ASPECT_RATIO_Y);
+        if (setBitmapMaxWidthHeight) options.withMaxResultSize(bitmapMaxWidth, bitmapMaxHeight)
+
+        UCrop.of(sourceUri, destinationUri)
+            .withOptions(options)
+            .start(this)
+    }
+
+    private fun queryName(resolver: ContentResolver, uri: Uri): String? {
+        val returnCursor = resolver.query(uri, null, null, null, null) ?: return ""
+        val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+        returnCursor.moveToFirst()
+        val name = returnCursor.getString(nameIndex)
+        returnCursor.close()
+        return name
     }
 
     /**
@@ -169,6 +296,29 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
                 updateUiFromState()
             }
         }
+    }
+
+    private fun setResultOk(imagePath: Uri?) {
+        val intent = Intent()
+        intent.putExtra("path", imagePath)
+        setResult(RESULT_OK, intent)
+        finish()
+    }
+
+    private fun setResultCancelled() {
+        val intent = Intent()
+        setResult(RESULT_CANCELED, intent)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data == null) {
+            setResultCancelled()
+            return
+        }
+        val resultUri = UCrop.getOutput(data)
+        setResultOk(resultUri)
     }
 
     /*
