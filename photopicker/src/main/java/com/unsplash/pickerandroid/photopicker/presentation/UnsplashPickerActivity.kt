@@ -18,9 +18,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.chip.ChipGroup
 import com.unsplash.pickerandroid.photopicker.Injector
 import com.unsplash.pickerandroid.photopicker.R
-import com.unsplash.pickerandroid.photopicker.UnsplashPhotoPicker
 import com.unsplash.pickerandroid.photopicker.data.UnsplashPhoto
 import com.yalantis.ucrop.UCrop
 import com.yalantis.ucrop.model.AspectRatio
@@ -71,35 +71,35 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
         val intent = intent ?: return
 
         ASPECT_RATIO_X = intent.getIntExtra(
-            INTENT_ASPECT_RATIO_X,
-            1
+                INTENT_ASPECT_RATIO_X,
+                1
         ).toFloat()
         ASPECT_RATIO_Y = intent.getIntExtra(
-            INTENT_ASPECT_RATIO_Y,
-            1
+                INTENT_ASPECT_RATIO_Y,
+                1
         ).toFloat()
         IMAGE_COMPRESSION = intent.getIntExtra(
-            INTENT_IMAGE_COMPRESSION_QUALITY,
-            IMAGE_COMPRESSION
+                INTENT_IMAGE_COMPRESSION_QUALITY,
+                IMAGE_COMPRESSION
         )
         lockAspectRatio = intent.getBooleanExtra(
-            INTENT_LOCK_ASPECT_RATIO,
-            false
+                INTENT_LOCK_ASPECT_RATIO,
+                false
         )
         setBitmapMaxWidthHeight = intent.getBooleanExtra(
-            INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT,
-            false
+                INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT,
+                false
         )
         bitmapMaxWidth = intent.getIntExtra(
-            INTENT_BITMAP_MAX_WIDTH,
-            bitmapMaxWidth
+                INTENT_BITMAP_MAX_WIDTH,
+                bitmapMaxWidth
         )
         bitmapMaxHeight = intent.getIntExtra(
-            INTENT_BITMAP_MAX_HEIGHT,
-            bitmapMaxHeight
+                INTENT_BITMAP_MAX_HEIGHT,
+                bitmapMaxHeight
         )
         defaultSearchTerm = intent.getStringExtra(
-            INTENT_SEARCH_TERMS
+                INTENT_SEARCH_TERMS
         ) ?: ""
 
 
@@ -125,6 +125,50 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
         }
         unsplash_picker_done_image_view.setOnClickListener { sendPhotosAsResult() }
         unsplash_picker_edit_text.setText(defaultSearchTerm)
+        chip_group_categories.setOnCheckedChangeListener { chipGroup: ChipGroup, i: Int ->
+            var selectedCategory = ""
+            var type = 0 //Type=0 for collection, 1 for search
+            when (i) {
+                R.id.chip_posts_trending -> {
+                    selectedCategory = "317099"
+                }
+                R.id.chip_posts_nature -> {
+                    selectedCategory = "327760"
+                }
+                R.id.chip_posts_animals -> {
+                    selectedCategory = "10477464"
+                }
+                R.id.chip_posts_abstract -> {
+                    selectedCategory = "993190"
+                }
+                R.id.chip_posts_textures -> {
+                    selectedCategory = "1848157"
+                }
+                R.id.chip_posts_festive -> {
+                    type = 1
+                    selectedCategory = "festive"
+                }
+                R.id.chip_posts_wallpapers -> {
+                    type = 1
+                    selectedCategory = "wallpapers"
+                }
+                R.id.chip_posts_birthday -> {
+                    type = 1
+                    selectedCategory = "birthday"
+                }
+                R.id.chip_posts_writers -> {
+                    selectedCategory = "40402531"
+                }
+            }
+            //unsplash_picker_edit_text.setText(selectedCategory)
+            if (type == 0) {
+                mViewModel.getUnsplashCollection(selectedCategory)
+            } else if (type == 1) {
+                mViewModel.getUnsplashForKeyword(selectedCategory);
+            }
+
+        }
+
         // get the view model and bind search edit text
         mViewModel =
                 ViewModelProviders.of(this, Injector.createPickerViewModelFactory())
@@ -145,12 +189,12 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
         })
         mViewModel.loadingLiveData.observe(this, Observer {
             unsplash_picker_progress_bar_layout.visibility =
-                if (it != null && it) View.VISIBLE else View.GONE
+                    if (it != null && it) View.VISIBLE else View.GONE
         })
         mViewModel.photosLiveData.observe(this, Observer {
             unsplash_picker_no_result_text_view.visibility =
-                if (it == null || it.isEmpty()) View.VISIBLE
-                else View.GONE
+                    if (it == null || it.isEmpty()) View.VISIBLE
+                    else View.GONE
             mAdapter.submitList(it)
         })
     }
@@ -209,7 +253,7 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
             try {
                 val tmpfname: String? =
                     queryName(
-                        contentResolver, sourceUri
+                            contentResolver, sourceUri
                     )
                 if (tmpfname != null &&!tmpfname.isEmpty()) {
                     fname = tmpfname
@@ -231,13 +275,13 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
         options.setActiveControlsWidgetColor(ContextCompat.getColor(this, R.color.colorPrimary))
         options.setToolbarWidgetColor(Color.WHITE)
         options.setAspectRatioOptions(
-            0,
-            AspectRatio(
-                null,
-                ASPECT_RATIO_X,
-                ASPECT_RATIO_Y
-            ),
-            AspectRatio(null, 1.0f, 1.0f)
+                0,
+                AspectRatio(
+                        null,
+                        ASPECT_RATIO_X,
+                        ASPECT_RATIO_Y
+                ),
+                AspectRatio(null, 1.0f, 1.0f)
         )
 
         if (lockAspectRatio)

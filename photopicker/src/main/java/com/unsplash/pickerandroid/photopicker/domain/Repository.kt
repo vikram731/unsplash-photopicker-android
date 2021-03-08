@@ -16,9 +16,9 @@ import io.reactivex.schedulers.Schedulers
  */
 class Repository constructor(private val networkEndpoints: NetworkEndpoints) {
 
-    fun loadPhotos(pageSize: Int): Observable<PagedList<UnsplashPhoto>> {
+    fun loadPhotos(collectionId: String, pageSize: Int): Observable<PagedList<UnsplashPhoto>> {
         return RxPagedListBuilder(
-            LoadPhotoDataSourceFactory(networkEndpoints),
+            LoadPhotoDataSourceFactory(networkEndpoints, collectionId),
             PagedList.Config.Builder()
                 .setInitialLoadSizeHint(pageSize)
                 .setPageSize(pageSize)

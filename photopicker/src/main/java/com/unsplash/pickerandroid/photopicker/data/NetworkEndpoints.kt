@@ -4,6 +4,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import retrofit2.http.Url
 
@@ -12,8 +13,9 @@ import retrofit2.http.Url
  */
 interface NetworkEndpoints {
 
-    @GET("collections/317099/photos")
+    @GET("collections/{collection_id}/photos")
     fun loadPhotos(
+        @Path("collection_id") collectionId: String,
         @Query("client_id") clientId: String,
         @Query("page") page: Int,
         @Query("per_page") pageSize: Int

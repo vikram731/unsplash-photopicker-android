@@ -20,4 +20,12 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@color/pickerColorDarkOverlay</item>
     </style>
+
+
+    <style name="CustomChipChoice" parent="@style/Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_state_list_background</item>
+        <item name="android:textColor">@color/chip_state_list_text</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipStrokeColor">@color/chip_state_list_border</item>
+    </style>
 </resources>

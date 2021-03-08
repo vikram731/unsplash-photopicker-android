@@ -13,7 +13,8 @@ import retrofit2.Response
  * Android paging library data source.
  * This will load the photos and allow an infinite scroll on the picker screen.
  */
-class LoadPhotoDataSource(private val networkEndpoints: NetworkEndpoints) : PageKeyedDataSource<Int, UnsplashPhoto>() {
+class LoadPhotoDataSource(private val networkEndpoints: NetworkEndpoints,
+private val collectionId: String) : PageKeyedDataSource<Int, UnsplashPhoto>() {
 
     val networkState = MutableLiveData<NetworkState>()
 
@@ -23,7 +24,7 @@ class LoadPhotoDataSource(private val networkEndpoints: NetworkEndpoints) : Page
         // updating the network state to loading
         networkState.postValue(NetworkState.LOADING)
         // api call for the first page
-        networkEndpoints.loadPhotos(UnsplashPhotoPicker.getAccessKey(), 1, params.requestedLoadSize)
+        networkEndpoints.loadPhotos(collectionId, UnsplashPhotoPicker.getAccessKey(), 1, params.requestedLoadSize)
             .subscribe(object : Observer<Response<List<UnsplashPhoto>>> {
                 override fun onComplete() {
                     // do nothing on this terminal event
@@ -61,7 +62,7 @@ class LoadPhotoDataSource(private val networkEndpoints: NetworkEndpoints) : Page
         // updating the network state to loading
         networkState.postValue(NetworkState.LOADING)
         // api call for the subsequent pages
-        networkEndpoints.loadPhotos(UnsplashPhotoPicker.getAccessKey(), params.key, params.requestedLoadSize)
+        networkEndpoints.loadPhotos(collectionId, UnsplashPhotoPicker.getAccessKey(), params.key, params.requestedLoadSize)
             .subscribe(object : Observer<Response<List<UnsplashPhoto>>> {
                 override fun onComplete() {
                     // do nothing on this terminal event

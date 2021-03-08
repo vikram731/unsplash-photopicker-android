@@ -9,13 +9,13 @@ import com.unsplash.pickerandroid.photopicker.data.UnsplashPhoto
  * Android paging library data source factory.
  * This will create the load photo data source.
  */
-class LoadPhotoDataSourceFactory constructor(private val networkEndpoints: NetworkEndpoints) :
+class LoadPhotoDataSourceFactory constructor(private val networkEndpoints: NetworkEndpoints, private val collectionId: String) :
     DataSource.Factory<Int, UnsplashPhoto>() {
 
     val sourceLiveData = MutableLiveData<LoadPhotoDataSource>()
 
     override fun create(): DataSource<Int, UnsplashPhoto> {
-        val source = LoadPhotoDataSource(networkEndpoints)
+        val source = LoadPhotoDataSource(networkEndpoints, collectionId)
         sourceLiveData.postValue(source)
         return source
     }

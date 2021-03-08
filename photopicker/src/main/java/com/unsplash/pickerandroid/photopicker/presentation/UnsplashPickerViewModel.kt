@@ -41,7 +41,7 @@ class UnsplashPickerViewModel constructor(private val repository: Repository) : 
             }
             .observeOn(Schedulers.io())
             .switchMap { text ->
-                if (TextUtils.isEmpty(text)) repository.loadPhotos(UnsplashPhotoPicker.getPageSize())
+                if (TextUtils.isEmpty(text)) repository.loadPhotos("317099", UnsplashPhotoPicker.getPageSize())
                 else repository.searchPhotos(text.toString(), UnsplashPhotoPicker.getPageSize())
             }
             .subscribe(object : BaseObserver<PagedList<UnsplashPhoto>>() {
@@ -49,6 +49,34 @@ class UnsplashPickerViewModel constructor(private val repository: Repository) : 
                     mPhotosLiveData.postValue(data)
                 }
             })
+    }
+
+    fun getUnsplashCollection(collectionId: String) {
+        if (collectionId.isEmpty()) {
+            repository.loadPhotos("317099", UnsplashPhotoPicker.getPageSize())
+        } else {
+            repository.loadPhotos(collectionId, UnsplashPhotoPicker.getPageSize())
+        }
+        .doOnNext {
+            mLoadingLiveData.postValue(true)
+        }
+        .subscribe(object : BaseObserver<PagedList<UnsplashPhoto>>() {
+            override fun onSuccess(data: PagedList<UnsplashPhoto>?) {
+                mPhotosLiveData.postValue(data)
+            }
+        })
+    }
+
+    fun getUnsplashForKeyword(text: String) {
+        repository.searchPhotos(text, UnsplashPhotoPicker.getPageSize())
+                .doOnNext {
+                    mLoadingLiveData.postValue(true)
+                }
+                .subscribe(object : BaseObserver<PagedList<UnsplashPhoto>>() {
+                    override fun onSuccess(data: PagedList<UnsplashPhoto>?) {
+                        mPhotosLiveData.postValue(data)
+                    }
+                })
     }
 
     /**

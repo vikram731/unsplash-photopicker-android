@@ -9,4 +9,6 @@
     <color name="pickerColorDarkOverlay">#dd000000</color>
     <color name="pickerColorGradientOverlay">#44000000</color>
     <color name="pickerColorSelectedOverlay">#66ffffff</color>
+    <color name="white">#FFFFFF</color>
+    <color name="DimGray">#696969</color>
 </resources>
