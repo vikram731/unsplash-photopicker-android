@@ -146,7 +146,7 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
                 }
                 R.id.chip_posts_festive -> {
                     type = 1
-                    selectedCategory = "festive"
+                    selectedCategory = "celebration"
                 }
                 R.id.chip_posts_wallpapers -> {
                     type = 1
