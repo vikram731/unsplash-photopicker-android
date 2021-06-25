@@ -3,10 +3,7 @@ package com.unsplash.pickerandroid.photopicker.data
 import io.reactivex.Completable
 import io.reactivex.Observable
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
-import retrofit2.http.Url
+import retrofit2.http.*
 
 /**
  * Retrofit endpoints definition.
@@ -30,7 +27,7 @@ interface NetworkEndpoints {
     ): Observable<Response<SearchResponse>>
 
     @GET
-    fun trackDownload(@Url url: String): Completable
+    fun trackDownload(@Url url: String, @Header("Authorization") content_type: String): Completable
 
     companion object {
         const val BASE_URL = "https://api.unsplash.com/"

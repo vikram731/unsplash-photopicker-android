@@ -38,8 +38,7 @@ class Repository constructor(private val networkEndpoints: NetworkEndpoints) {
 
     fun trackDownload(url: String?) {
         if (url != null) {
-            val authUrl = url + "?client_id=" + UnsplashPhotoPicker.getAccessKey()
-            networkEndpoints.trackDownload(authUrl)
+            networkEndpoints.trackDownload(url, "Client-ID " + UnsplashPhotoPicker.getAccessKey())
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : CompletableObserver {
