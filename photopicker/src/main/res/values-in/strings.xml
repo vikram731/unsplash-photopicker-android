@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Photo Picker</string>
+    <string name="back">Kembali</string>
+    <string name="checked">Diperiksa</string>
+    <string name="clear">Jernih</string>
+    <string name="done">Selesai</string>
+    <string name="no_result">Tidak ada hasil pencarian</string>
+    <string name="photo">Foto</string>
+    <string name="photo_selected">1 foto dipilih</string>
+    <string name="photos_selected">%1$d foto dipilih</string>
+    <string name="search">Cari foto gratis</string>
+    <string name="unsplash">Latar Belakang HD</string>
+    <string name="trending">Sedang tren</string>
+    <string name="writer">Penulis</string>
+    <string name="nature">Alam</string>
+    <string name="animals">Hewan</string>
+    <string name="abstract_label">Abstrak</string>
+    <string name="textures">Tekstur</string>
+    <string name="festive">Meriah</string>
+    <string name="wallpapers">Wallpaper</string>
+    <string name="birthday">HariUlangTahun</string>
+</resources>

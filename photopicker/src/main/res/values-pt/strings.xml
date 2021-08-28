@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Photo Picker</string>
+    <string name="back">Voltar</string>
+    <string name="checked">Verificado</string>
+    <string name="clear">Claro</string>
+    <string name="done">Feito</string>
+    <string name="no_result">Sem resultados de pesquisa</string>
+    <string name="photo">foto</string>
+    <string name="photo_selected">1 foto selecionada</string>
+    <string name="photos_selected">%1$d fotos selecionadas</string>
+    <string name="search">Pesquise fotos grátis</string>
+    <string name="unsplash">Fundos HD</string>
+    <string name="trending">Tendendo</string>
+    <string name="writer">escritor</string>
+    <string name="nature">Natureza</string>
+    <string name="animals">Animais</string>
+    <string name="abstract_label">Resumo</string>
+    <string name="textures">Texturas</string>
+    <string name="festive">Festivo</string>
+    <string name="wallpapers">PapéisDeParede</string>
+    <string name="birthday">Aniversário</string>
+</resources>

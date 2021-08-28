@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Photo Picker</string>
+    <string name="back">પાછળ</string>
+    <string name="checked">તપાસ્યું</string>
+    <string name="clear">ચોખ્ખુ</string>
+    <string name="done">થઈ ગયું</string>
+    <string name="no_result">કોઈ શોધ પરિણામો નથી</string>
+    <string name="photo">ફોટો</string>
+    <string name="photo_selected">1 ફોટો પસંદ કર્યો</string>
+    <string name="photos_selected">%1$d ફોટા પસંદ કર્યા</string>
+    <string name="search">મફત ફોટા શોધો</string>
+    <string name="unsplash">એચડી બેકગ્રાઉન્ડ્સ</string>
+    <string name="trending">ટ્રેન્ડિંગ</string>
+    <string name="writer">લેખક</string>
+    <string name="nature">પ્રકૃતિ</string>
+    <string name="animals">પ્રાણીઓ</string>
+    <string name="abstract_label">અમૂર્ત</string>
+    <string name="textures">ટેક્સચર</string>
+    <string name="festive">ઉત્સવ</string>
+    <string name="wallpapers">વોલપેપર</string>
+    <string name="birthday">જન્મદિવસ</string>
+</resources>

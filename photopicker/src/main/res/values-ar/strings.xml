@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Photo Picker</string>
+    <string name="back">خلف</string>
+    <string name="checked">التحقق</string>
+    <string name="clear">واضح</string>
+    <string name="done">منتهي</string>
+    <string name="no_result">لا نتائج للبحث</string>
+    <string name="photo">صورة فوتوغرافية</string>
+    <string name="photo_selected">تم تحديد صورة واحدة</string>
+    <string name="photos_selected">%1$d تم تحديد صور</string>
+    <string name="search">البحث عن صور مجانية</string>
+    <string name="unsplash">خلفيات HD</string>
+    <string name="trending">الشائع</string>
+    <string name="writer">كاتب</string>
+    <string name="nature">طبيعة سجية</string>
+    <string name="animals">الحيوانات</string>
+    <string name="abstract_label">الملخص</string>
+    <string name="textures">القوام</string>
+    <string name="festive">احتفالي</string>
+    <string name="wallpapers">خلفيات</string>
+    <string name="birthday">عيد الميلاد</string>
+</resources>

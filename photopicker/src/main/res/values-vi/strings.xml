@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Photo Picker</string>
+    <string name="back">Mặt sau</string>
+    <string name="checked">Đã kiểm tra</string>
+    <string name="clear">Sạch</string>
+    <string name="done">Xong</string>
+    <string name="no_result">Không có kết quả tìm kiếm</string>
+    <string name="photo">ảnh</string>
+    <string name="photo_selected">1 ảnh được chọn</string>
+    <string name="photos_selected">Đã chọn %1$d ảnh</string>
+    <string name="search">Tìm kiếm ảnh miễn phí</string>
+    <string name="unsplash">Nền HD</string>
+    <string name="trending">XuHướng</string>
+    <string name="writer">NhàVăn</string>
+    <string name="nature">ThiênNhiên</string>
+    <string name="animals">LoàiVật</string>
+    <string name="abstract_label">TrừuTượng</string>
+    <string name="textures">KếtCấu</string>
+    <string name="festive">LễHội</string>
+    <string name="wallpapers">HìnhNền</string>
+    <string name="birthday">NgàySinhNhật</string>
+</resources>

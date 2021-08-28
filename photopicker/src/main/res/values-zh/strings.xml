@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Photo Picker</string>
+    <string name="back">后退</string>
+    <string name="checked">已检查</string>
+    <string name="clear">清除</string>
+    <string name="done">完毕</string>
+    <string name="no_result">没有搜索结果</string>
+    <string name="photo">照片</string>
+    <string name="photo_selected">已选择 1 张照片</string>
+    <string name="photos_selected">已选择 %1$d 张照片</string>
+    <string name="search">搜索免费照片</string>
+    <string name="unsplash">高清背景</string>
+    <string name="trending">趋势</string>
+    <string name="writer">作家</string>
+    <string name="nature">自然</string>
+    <string name="animals">动物</string>
+    <string name="abstract_label">抽象的</string>
+    <string name="textures">纹理</string>
+    <string name="festive">喜庆的</string>
+    <string name="wallpapers">壁纸</string>
+    <string name="birthday">生日</string>
+</resources>

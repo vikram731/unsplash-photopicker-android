@@ -17,17 +17,21 @@ object UnsplashPhotoPicker {
 
     private var pageSize: Int = DEFAULT_PAGE_SIZE
 
+    private var lang: String = "en"
+
     private var isLoggingEnabled = false
 
     fun init(
         application: Application,
         accessKey: String,
         secretKey: String,
+        lang: String,
         pageSize: Int = DEFAULT_PAGE_SIZE
     ): UnsplashPhotoPicker {
         this.application = application
         this.accessKey = accessKey
         this.secretKey = secretKey
+        this.lang = lang
         this.pageSize = pageSize
         return this
     }
@@ -46,6 +50,14 @@ object UnsplashPhotoPicker {
 
     fun getPageSize(): Int {
         return pageSize
+    }
+
+    fun setAppLanguage(appLang: String) {
+        lang = appLang
+    }
+
+    fun getAppLanguage(): String {
+        return lang
     }
 
     fun setLoggingEnabled(isEnabled: Boolean) {

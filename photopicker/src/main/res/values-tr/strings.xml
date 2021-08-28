@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Photo Picker</string>
+    <string name="back">Geri</string>
+    <string name="checked">Kontrol</string>
+    <string name="clear">Açık</string>
+    <string name="done">Tamamlandı</string>
+    <string name="no_result">Arama sonucu bulunamadı</string>
+    <string name="photo">Fotoğraf</string>
+    <string name="photo_selected">1 fotoğraf seçildi</string>
+    <string name="photos_selected">%1$d fotoğraf seçildi</string>
+    <string name="search">Ücretsiz fotoğraf ara</string>
+    <string name="unsplash">HD Arka Planlar</string>
+    <string name="trending">Trend olan</string>
+    <string name="writer">yazar</string>
+    <string name="nature">Doğa</string>
+    <string name="animals">Hayvanlar</string>
+    <string name="abstract_label">Soyut</string>
+    <string name="textures">Dokular</string>
+    <string name="festive">Festival</string>
+    <string name="wallpapers">Duvar kağıtları</string>
+    <string name="birthday">Doğum günü</string>
+</resources>

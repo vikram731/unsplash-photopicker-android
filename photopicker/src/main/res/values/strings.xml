@@ -10,4 +10,13 @@
     <string name="photos_selected">%1$d photos selected</string>
     <string name="search">Search free photos</string>
     <string name="unsplash">HD Backgrounds</string>
+    <string name="trending">Trending</string>
+    <string name="writer">Writer</string>
+    <string name="nature">Nature</string>
+    <string name="animals">Animals</string>
+    <string name="abstract_label">Abstract</string>
+    <string name="textures">Textures</string>
+    <string name="festive">Festive</string>
+    <string name="wallpapers">Wallpapers</string>
+    <string name="birthday">Birthday</string>
 </resources>

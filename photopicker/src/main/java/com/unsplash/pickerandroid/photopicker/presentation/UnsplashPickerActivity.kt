@@ -7,9 +7,11 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -26,13 +28,15 @@ import com.yalantis.ucrop.UCrop
 import com.yalantis.ucrop.model.AspectRatio
 import kotlinx.android.synthetic.main.activity_picker.*
 import java.io.File
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Main screen for the picker.
  * This will show a list a photos and a search component.
  * The list is has an infinite scroll.
  */
-class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
+class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
 
     val INTENT_ASPECT_RATIO_X = "aspect_ratio_x"
     val INTENT_ASPECT_RATIO_Y = "aspect_ratio_Y"

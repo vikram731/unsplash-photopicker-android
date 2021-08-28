@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Photo Picker</string>
+    <string name="back">തിരികെ</string>
+    <string name="checked">പരിശോധിച്ചു</string>
+    <string name="clear">തെളിഞ്ഞ</string>
+    <string name="done">ചെയ്തു</string>
+    <string name="no_result">തിരയൽ ഫലങ്ങളൊന്നുമില്ല</string>
+    <string name="photo">ഫോട്ടോ</string>
+    <string name="photo_selected">1 ഫോട്ടോ തിരഞ്ഞെടുത്തു</string>
+    <string name="photos_selected">%1$d ഫോട്ടോകൾ തിരഞ്ഞെടുത്തു</string>
+    <string name="search">സൗജന്യ ഫോട്ടോകൾ തിരയുക</string>
+    <string name="unsplash">HD പശ്ചാത്തലങ്ങൾ</string>
+    <string name="trending">ട്രെൻഡിംഗ്</string>
+    <string name="writer">എഴുത്തുകാരൻ</string>
+    <string name="nature">പ്രകൃതി</string>
+    <string name="animals">മൃഗങ്ങൾ</string>
+    <string name="abstract_label">അമൂർത്തമായത്</string>
+    <string name="textures">ടെക്സ്ചറുകൾ</string>
+    <string name="festive">ഉത്സവം</string>
+    <string name="wallpapers">വാൾപേപ്പറുകൾ</string>
+    <string name="birthday">ജന്മദിനം</string>
+</resources>

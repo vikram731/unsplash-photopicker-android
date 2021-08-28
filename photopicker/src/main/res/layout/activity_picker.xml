@@ -123,56 +123,56 @@
                     android:id="@+id/chip_posts_trending"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Trending"
+                    android:text="@string/trending"
                     android:checked="true"
                     style="@style/CustomChipChoice"/>
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_posts_writers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Writer"
+                    android:text="@string/writer"
                     style="@style/CustomChipChoice"/>
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_posts_nature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nature"
+                    android:text="@string/nature"
                     style="@style/CustomChipChoice"/>
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_posts_animals"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Animals"
+                    android:text="@string/animals"
                     style="@style/CustomChipChoice"/>
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_posts_abstract"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Abstract"
+                    android:text="@string/abstract_label"
                     style="@style/CustomChipChoice"/>
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_posts_textures"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Textures"
+                    android:text="@string/textures"
                     style="@style/CustomChipChoice"/>
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_posts_festive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Festive"
+                    android:text="@string/festive"
                     style="@style/CustomChipChoice"/>
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_posts_wallpapers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Wallpapers"
+                    android:text="@string/wallpapers"
                     style="@style/CustomChipChoice"/>
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_posts_birthday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Birthday"
+                    android:text="@string/birthday"
                     style="@style/CustomChipChoice"/>
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>

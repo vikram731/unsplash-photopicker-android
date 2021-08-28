@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Photo Picker</string>
+    <string name="back">Terug</string>
+    <string name="checked">Gekontroleer</string>
+    <string name="clear">Duidelik</string>
+    <string name="done">Klaar</string>
+    <string name="no_result">Geen soekresultate nie</string>
+    <string name="photo">Foto</string>
+    <string name="photo_selected">1 foto gekies</string>
+    <string name="photos_selected">%1$d foto\'s gekies</string>
+    <string name="search">Soek gratis foto\'s</string>
+    <string name="unsplash">HD agtergronde</string>
+    <string name="trending">Gewild</string>
+    <string name="writer">Skrywer</string>
+    <string name="nature">Natuur</string>
+    <string name="animals">Diere</string>
+    <string name="abstract_label">Abstract</string>
+    <string name="textures">Teksture</string>
+    <string name="festive">Feestelik</string>
+    <string name="wallpapers">Agtergronde</string>
+    <string name="birthday">Verjaarsdag</string>
+</resources>

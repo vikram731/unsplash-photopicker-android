@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Photo Picker</string>
+    <string name="back">戻る</string>
+    <string name="checked">チェック済み</string>
+    <string name="clear">クリア</string>
+    <string name="done">終わり</string>
+    <string name="no_result">検索結果がありません</string>
+    <string name="photo">写真</string>
+    <string name="photo_selected">写真1枚を選択</string>
+    <string name="photos_selected">%1$d の写真が選択されました</string>
+    <string name="search">無料の写真を検索</string>
+    <string name="unsplash">HDの背景</string>
+    <string name="trending">トレンド</string>
+    <string name="writer">作家</string>
+    <string name="nature">自然</string>
+    <string name="animals">動物</string>
+    <string name="abstract_label">概要</string>
+    <string name="textures">テクスチャ</string>
+    <string name="festive">お祭り</string>
+    <string name="wallpapers">壁紙</string>
+    <string name="birthday">誕生日</string>
+</resources>
