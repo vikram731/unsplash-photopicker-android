@@ -52,11 +52,12 @@ class UnsplashPickerViewModel constructor(private val repository: Repository) : 
     }
 
     fun getUnsplashCollection(collectionId: String) {
+        var cid = collectionId
         if (collectionId.isEmpty()) {
-            repository.loadPhotos("317099", UnsplashPhotoPicker.getPageSize())
-        } else {
-            repository.loadPhotos(collectionId, UnsplashPhotoPicker.getPageSize())
+            cid = "317099"
         }
+
+        repository.loadPhotos(cid, UnsplashPhotoPicker.getPageSize())
         .doOnNext {
             mLoadingLiveData.postValue(true)
         }
