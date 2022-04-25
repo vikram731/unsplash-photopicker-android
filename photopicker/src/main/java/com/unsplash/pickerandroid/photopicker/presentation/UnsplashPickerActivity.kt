@@ -10,7 +10,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -60,8 +59,8 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
     private  var setBitmapMaxWidthHeight: Boolean = false
     private var ASPECT_RATIO_X: Float = 1.0f
     private  var ASPECT_RATIO_Y: Float = 1.0f
-    private  var bitmapMaxWidth:Int = 1024
-    private  var bitmapMaxHeight:Int = 1024
+    private  var bitmapMaxWidth:Int = 2048
+    private  var bitmapMaxHeight:Int = 2048
     private var IMAGE_COMPRESSION: Int = 80
     private var defaultSearchTerm: String = ""
 
@@ -249,13 +248,10 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
     }
 
     private fun cropImage(sourceUri: Uri) {
-        var fname = "quotepic"
+        var fname = "quotepic" + System.currentTimeMillis();
         if (!sourceUri.toString().startsWith("http")) {
             try {
-                val tmpfname: String? =
-                    queryName(
-                            contentResolver, sourceUri
-                    )
+                val tmpfname: String? = queryName(contentResolver, sourceUri)
                 if (tmpfname != null &&!tmpfname.isEmpty()) {
                     fname = tmpfname
                 }
