@@ -23,6 +23,7 @@ import com.unsplash.pickerandroid.photopicker.R
 import com.unsplash.pickerandroid.photopicker.data.UnsplashPhoto
 import com.yalantis.ucrop.UCrop
 import com.yalantis.ucrop.model.AspectRatio
+import com.yalantis.ucrop.view.CropImageView
 import kotlinx.android.synthetic.main.activity_picker.*
 import java.io.File
 import kotlin.collections.ArrayList
@@ -271,18 +272,36 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
         options.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
         options.setActiveControlsWidgetColor(ContextCompat.getColor(this, R.color.colorPrimary))
         options.setToolbarWidgetColor(Color.WHITE)
-        options.setAspectRatioOptions(
+
+        if(ASPECT_RATIO_X == 1.0f && ASPECT_RATIO_Y == 1.0f) {
+            options.setAspectRatioOptions(
+                0,
+                AspectRatio(null, 1.0f, 1.0f),
+                AspectRatio(
+                    "Original",
+                    CropImageView.DEFAULT_ASPECT_RATIO,
+                    CropImageView.DEFAULT_ASPECT_RATIO
+                )
+            )
+        } else {
+            options.setAspectRatioOptions(
                 0,
                 AspectRatio(
-                        null,
-                        ASPECT_RATIO_X,
-                        ASPECT_RATIO_Y
+                    null,
+                    ASPECT_RATIO_X,
+                    ASPECT_RATIO_Y
                 ),
-                AspectRatio(null, 1.0f, 1.0f)
-        )
+                AspectRatio(null, 1.0f, 1.0f),
+                AspectRatio(
+                    "Original",
+                    CropImageView.DEFAULT_ASPECT_RATIO,
+                    CropImageView.DEFAULT_ASPECT_RATIO
+                )
+            )
+        }
 
-        if (lockAspectRatio)
-            options.withAspectRatio(ASPECT_RATIO_X, ASPECT_RATIO_Y);
+//        if (lockAspectRatio)
+//            options.withAspectRatio(ASPECT_RATIO_X, ASPECT_RATIO_Y);
         if (setBitmapMaxWidthHeight) options.withMaxResultSize(bitmapMaxWidth, bitmapMaxHeight)
 
         UCrop.of(sourceUri, destinationUri)
