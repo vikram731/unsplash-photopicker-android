@@ -21,10 +21,10 @@ import com.google.android.material.chip.ChipGroup
 import com.unsplash.pickerandroid.photopicker.Injector
 import com.unsplash.pickerandroid.photopicker.R
 import com.unsplash.pickerandroid.photopicker.data.UnsplashPhoto
+import com.unsplash.pickerandroid.photopicker.databinding.ActivityPickerBinding
 import com.yalantis.ucrop.UCrop
 import com.yalantis.ucrop.model.AspectRatio
 import com.yalantis.ucrop.view.CropImageView
-import kotlinx.android.synthetic.main.activity_picker.*
 import java.io.File
 import kotlin.collections.ArrayList
 
@@ -43,6 +43,8 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
     val INTENT_BITMAP_MAX_WIDTH = "max_width"
     val INTENT_BITMAP_MAX_HEIGHT = "max_height"
     val INTENT_SEARCH_TERMS = "search_terms"
+
+    private lateinit var binding: ActivityPickerBinding
 
     private lateinit var mLayoutManager: StaggeredGridLayoutManager
 
@@ -67,7 +69,9 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_picker)
+        binding = ActivityPickerBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         val intent = intent ?: return
 
@@ -111,22 +115,22 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
         mAdapter = UnsplashPhotoAdapter(this, mIsMultipleSelection)
         mAdapter.setOnImageSelectedListener(this)
         // recycler view configuration
-        unsplash_picker_recycler_view.setHasFixedSize(true)
-        unsplash_picker_recycler_view.itemAnimator = null
-        unsplash_picker_recycler_view.layoutManager = mLayoutManager
-        unsplash_picker_recycler_view.adapter = mAdapter
+        binding.unsplashPickerRecyclerView.setHasFixedSize(true)
+        binding.unsplashPickerRecyclerView.itemAnimator = null
+        binding.unsplashPickerRecyclerView.layoutManager = mLayoutManager
+        binding.unsplashPickerRecyclerView.adapter = mAdapter
         // click listeners
-        unsplash_picker_back_image_view.setOnClickListener { onBackPressed() }
-        unsplash_picker_cancel_image_view.setOnClickListener { onBackPressed() }
-        unsplash_picker_clear_image_view.setOnClickListener { onBackPressed() }
-        unsplash_picker_search_image_view.setOnClickListener {
+        binding.unsplashPickerBackImageView.setOnClickListener { onBackPressed() }
+        binding.unsplashPickerCancelImageView.setOnClickListener { onBackPressed() }
+        binding.unsplashPickerClearImageView.setOnClickListener { onBackPressed() }
+        binding.unsplashPickerSearchImageView.setOnClickListener {
             // updating state
             mCurrentState = UnsplashPickerState.SEARCHING
             updateUiFromState()
         }
-        unsplash_picker_done_image_view.setOnClickListener { sendPhotosAsResult() }
-        unsplash_picker_edit_text.setText(defaultSearchTerm)
-        chip_group_categories.setOnCheckedChangeListener { chipGroup: ChipGroup, i: Int ->
+        binding.unsplashPickerDoneImageView.setOnClickListener { sendPhotosAsResult() }
+        binding.unsplashPickerEditText.setText(defaultSearchTerm)
+        binding.chipGroupCategories.setOnCheckedChangeListener { chipGroup: ChipGroup, i: Int ->
             var selectedCategory = ""
             var type = 0 //Type=0 for collection, 1 for search
             when (i) {
@@ -137,7 +141,7 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
                     selectedCategory = "327760"
                 }
                 R.id.chip_posts_animals -> {
-                    selectedCategory = "10477464"
+                    selectedCategory = "4760062"
                 }
                 R.id.chip_posts_abstract -> {
                     selectedCategory = "993190"
@@ -175,7 +179,7 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
                 ViewModelProviders.of(this, Injector.createPickerViewModelFactory())
                     .get(UnsplashPickerViewModel::class.java)
         observeViewModel()
-        mViewModel.bindSearch(unsplash_picker_edit_text)
+        mViewModel.bindSearch(binding.unsplashPickerEditText)
     }
 
     /**
@@ -189,11 +193,11 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         })
         mViewModel.loadingLiveData.observe(this, Observer {
-            unsplash_picker_progress_bar_layout.visibility =
+            binding.unsplashPickerProgressBarLayout.visibility =
                     if (it != null && it) View.VISIBLE else View.GONE
         })
         mViewModel.photosLiveData.observe(this, Observer {
-            unsplash_picker_no_result_text_view.visibility =
+            binding.unsplashPickerNoResultTextView.visibility =
                     if (it == null || it.isEmpty()) View.VISIBLE
                     else View.GONE
             mAdapter.submitList(it)
@@ -213,7 +217,7 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
         // if multiple selection
         if (mIsMultipleSelection) {
             // update the title
-            unsplash_picker_title_text_view.text = when (nbOfSelectedPhotos) {
+            binding.unsplashPickerTitleTextView.text = when (nbOfSelectedPhotos) {
                 0 -> getString(R.string.unsplash)
                 1 -> getString(R.string.photo_selected)
                 else -> getString(R.string.photos_selected, nbOfSelectedPhotos)
@@ -337,6 +341,7 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
         startActivity(PhotoShowActivity.getStartingIntent(this, url))
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         when (mCurrentState) {
             UnsplashPickerState.IDLE -> {
@@ -376,6 +381,7 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
     }
 
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data == null) {
@@ -394,56 +400,56 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
         when (mCurrentState) {
             UnsplashPickerState.IDLE -> {
                 // back and search buttons visible
-                unsplash_picker_back_image_view.visibility = View.VISIBLE
-                unsplash_picker_search_image_view.visibility = View.VISIBLE
+                binding.unsplashPickerBackImageView.visibility = View.VISIBLE
+                binding.unsplashPickerSearchImageView.visibility = View.VISIBLE
                 // cancel and done buttons gone
-                unsplash_picker_cancel_image_view.visibility = View.GONE
-                unsplash_picker_done_image_view.visibility = View.GONE
+                binding.unsplashPickerCancelImageView.visibility = View.GONE
+                binding.unsplashPickerClearImageView.visibility = View.GONE
                 // edit text cleared and gone
-                if (!TextUtils.isEmpty(unsplash_picker_edit_text.text)) {
-                    unsplash_picker_edit_text.setText("")
+                if (!TextUtils.isEmpty(binding.unsplashPickerEditText.text)) {
+                    binding.unsplashPickerEditText.setText("")
                 }
-                unsplash_picker_edit_text.visibility = View.GONE
+                binding.unsplashPickerEditText.visibility = View.GONE
                 // right clear button on top of edit text gone
-                unsplash_picker_clear_image_view.visibility = View.GONE
+                binding.unsplashPickerClearImageView.visibility = View.GONE
                 // keyboard down
-                unsplash_picker_edit_text.closeKeyboard(this)
+                binding.unsplashPickerEditText.closeKeyboard(this)
                 // action bar with unsplash
-                unsplash_picker_title_text_view.text = getString(R.string.unsplash)
+                binding.unsplashPickerTitleTextView.text = getString(R.string.unsplash)
                 // clear list selection
                 mAdapter.clearSelection()
                 mAdapter.notifyDataSetChanged()
             }
             UnsplashPickerState.SEARCHING -> {
                 // back, cancel, done or search buttons gone
-                unsplash_picker_back_image_view.visibility = View.GONE
-                unsplash_picker_cancel_image_view.visibility = View.GONE
-                unsplash_picker_done_image_view.visibility = View.GONE
-                unsplash_picker_search_image_view.visibility = View.GONE
+                binding.unsplashPickerBackImageView.visibility = View.GONE
+                binding.unsplashPickerCancelImageView.visibility = View.GONE
+                binding.unsplashPickerDoneImageView.visibility = View.GONE
+                binding.unsplashPickerSearchImageView.visibility = View.GONE
                 // edit text visible and focused
-                unsplash_picker_edit_text.visibility = View.VISIBLE
+                binding.unsplashPickerEditText.visibility = View.VISIBLE
                 // right clear button on top of edit text visible
-                unsplash_picker_clear_image_view.visibility = View.VISIBLE
+                binding.unsplashPickerClearImageView.visibility = View.VISIBLE
                 // keyboard up
-                unsplash_picker_edit_text.requestFocus()
-                unsplash_picker_edit_text.openKeyboard(this)
+                binding.unsplashPickerEditText.requestFocus()
+                binding.unsplashPickerEditText.openKeyboard(this)
                 // clear list selection
                 mAdapter.clearSelection()
                 mAdapter.notifyDataSetChanged()
             }
             UnsplashPickerState.PHOTO_SELECTED -> {
                 // back and search buttons gone
-                unsplash_picker_back_image_view.visibility = View.GONE
-                unsplash_picker_search_image_view.visibility = View.GONE
+                binding.unsplashPickerBackImageView.visibility = View.GONE
+                binding.unsplashPickerSearchImageView.visibility = View.GONE
                 // cancel and done buttons visible
-                unsplash_picker_cancel_image_view.visibility = View.VISIBLE
-                unsplash_picker_done_image_view.visibility = View.VISIBLE
+                binding.unsplashPickerCancelImageView.visibility = View.VISIBLE
+                binding.unsplashPickerDoneImageView.visibility = View.VISIBLE
                 // edit text gone
-                unsplash_picker_edit_text.visibility = View.GONE
+                binding.unsplashPickerEditText.visibility = View.GONE
                 // right clear button on top of edit text gone
-                unsplash_picker_clear_image_view.visibility = View.GONE
+                binding.unsplashPickerClearImageView.visibility = View.GONE
                 // keyboard down
-                unsplash_picker_edit_text.closeKeyboard(this)
+                binding.unsplashPickerEditText.closeKeyboard(this)
             }
         }
     }
