@@ -54,10 +54,10 @@ dependencies {
 
     // lifecycle
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation "androidx.lifecycle:lifecycle-common-java8:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.8.6"
 
     // cropping
-    implementation 'com.github.yalantis:ucrop:2.2.8'
+    implementation 'com.github.yalantis:ucrop:2.2.9'
 
     // test
     testImplementation 'junit:junit:4.13.2'
