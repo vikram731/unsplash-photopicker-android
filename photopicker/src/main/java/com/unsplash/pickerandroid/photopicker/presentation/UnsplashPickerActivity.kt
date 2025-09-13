@@ -138,7 +138,7 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
                     selectedCategory = "317099"
                 }
                 R.id.chip_posts_nature -> {
-                    selectedCategory = "327760"
+                    selectedCategory = "583204"
                 }
                 R.id.chip_posts_animals -> {
                     selectedCategory = "4760062"

@@ -2,14 +2,13 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 android {
-    compileSdkVersion 29
+    namespace "com.unsplash.pickerandroid.example"
+    compileSdkVersion 36
     defaultConfig {
         applicationId "com.unsplash.pickerandroid.example"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 36
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
