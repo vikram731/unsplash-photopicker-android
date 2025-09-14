@@ -18,10 +18,10 @@ import java.util.concurrent.TimeUnit
  * This will use the repository to fetch the photos depending on the search criteria.
  * This is using rx binding.
  */
-class UnsplashPickerViewModel constructor(private val repository: Repository) : BaseViewModel() {
+class UnsplashPickerViewModel(private val repository: Repository) : BaseViewModel() {
 
-    private val mPhotosLiveData = MutableLiveData<PagedList<UnsplashPhoto>>()
-    val photosLiveData: LiveData<PagedList<UnsplashPhoto>> get() = mPhotosLiveData
+    private val mPhotosLiveData = MutableLiveData<PagedList<UnsplashPhoto>?>()
+    val photosLiveData: LiveData<PagedList<UnsplashPhoto>> get() = mPhotosLiveData as LiveData<PagedList<UnsplashPhoto>>
 
     override fun getTag(): String {
         return UnsplashPickerViewModel::class.java.simpleName

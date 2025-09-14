@@ -57,7 +57,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:2.9.3"
 
     // cropping
-    implementation 'com.github.yalantis:ucrop:2.2.10'
+    implementation 'com.github.yalantis:ucrop:2.2.11'
 
     // test
     testImplementation 'junit:junit:4.13.2'

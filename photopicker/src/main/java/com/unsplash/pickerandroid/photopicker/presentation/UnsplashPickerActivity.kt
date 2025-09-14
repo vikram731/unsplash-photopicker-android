@@ -15,7 +15,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.chip.ChipGroup
 import com.unsplash.pickerandroid.photopicker.Injector
@@ -176,8 +176,7 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
 
         // get the view model and bind search edit text
         mViewModel =
-                ViewModelProviders.of(this, Injector.createPickerViewModelFactory())
-                    .get(UnsplashPickerViewModel::class.java)
+            ViewModelProvider(this, Injector.createPickerViewModelFactory())[UnsplashPickerViewModel::class.java]
         observeViewModel()
         mViewModel.bindSearch(binding.unsplashPickerEditText)
     }
@@ -273,7 +272,6 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
         val options = UCrop.Options()
         //options.setCompressionQuality(IMAGE_COMPRESSION);
         options.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
-        options.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
         options.setActiveControlsWidgetColor(ContextCompat.getColor(this, R.color.colorPrimary))
         options.setToolbarWidgetColor(Color.WHITE)
 
