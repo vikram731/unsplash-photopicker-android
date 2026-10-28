@@ -3,6 +3,7 @@ package com.unsplash.pickerandroid.photopicker.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import com.unsplash.pickerandroid.photopicker.R
@@ -18,6 +19,11 @@ class PhotoShowActivity : AppCompatActivity() {
         binding = ActivityImageShowBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                handleBackPressed()
+            }
+        })
 
         // loading the image thanks to its url
         Picasso.get().load(intent.getStringExtra(EXTRA_URL))
@@ -26,8 +32,7 @@ class PhotoShowActivity : AppCompatActivity() {
         binding.imageShowLayout.setOnClickListener { supportFinishAfterTransition() }
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
+    private fun handleBackPressed() {
         supportFinishAfterTransition()
     }
 

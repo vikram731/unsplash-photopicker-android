@@ -8,6 +8,7 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import android.provider.OpenableColumns
 import android.text.TextUtils
 import android.view.View
@@ -72,6 +73,11 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
         binding = ActivityPickerBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                handleBackPressed()
+            }
+        })
 
         val intent = intent ?: return
 
@@ -339,11 +345,10 @@ class UnsplashPickerActivity : BaseActivity(), OnPhotoSelectedListener {
         startActivity(PhotoShowActivity.getStartingIntent(this, url))
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
+    private fun handleBackPressed() {
         when (mCurrentState) {
             UnsplashPickerState.IDLE -> {
-                super.onBackPressed()
+                finish()
             }
             UnsplashPickerState.SEARCHING -> {
                 // updating states
